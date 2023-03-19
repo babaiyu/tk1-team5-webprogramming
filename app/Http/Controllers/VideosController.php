@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VideoRequest;
 use App\Models\Videos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class VideosController extends Controller
@@ -28,7 +30,7 @@ class VideosController extends Controller
         return response()->json($video);
     }
 
-    public function postVideo(Request $request)
+    public function postVideo(VideoRequest $request)
     {
         $file_video = $request->file('video');
         $file_video_name = time() . '_' . $file_video->getClientOriginalName();
@@ -61,7 +63,7 @@ class VideosController extends Controller
         }
     }
 
-    public function updateVideo(Request $request, string $id)
+    public function updateVideo(VideoRequest $request, string $id)
     {
         $video = Videos::findOrFail($id);
 
